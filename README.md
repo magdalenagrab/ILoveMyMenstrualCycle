@@ -6,7 +6,7 @@ It showcases:
 - Data processing of user notes and mood per day.
 - Aggregation of mood by **cycle phase** (Menstruation, Follicular, Ovulation, Luteal).
 - Visualization and comparison of multiple months.
-- Expert-level Python scripting for scientific-style data handling and visualization.
+- Python scripting for scientific-style data handling and visualization.
 
 **Note:** All data is **fictional**. The ideas, structure, and visualization approach are proprietary.
 
