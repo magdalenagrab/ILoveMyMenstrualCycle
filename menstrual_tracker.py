@@ -13,37 +13,48 @@ CYCLE_PHASES = {
 with open("sample_cycle_data.json", "r", encoding="utf-8") as f:
     months_data = json.load(f)
 
-# --- Aggregate mood by phase ---
-phase_mood_summary = {}
+# --- Aggregate mood + notes by phase ---
+phase_summary = {}
 
 for month in months_data:
     month_name = month["month"]
-    phase_mood_summary[month_name] = {}
+    phase_summary[month_name] = {}
     for phase, days_range in CYCLE_PHASES.items():
-        # Collect moods in phase
+        # Collect moods and notes
         moods = [day["mood"] for day in month["days"] if day["day"] in days_range]
-        if moods:
-            avg_mood = sum(moods) / len(moods)
-        else:
-            avg_mood = None
-        phase_mood_summary[month_name][phase] = avg_mood
+        notes = [day["note"] for day in month["days"] if day["day"] in days_range]
+
+        avg_mood = sum(moods) / len(moods) if moods else None
+        joined_notes = " | ".join(notes) if notes else "(no notes)"
+
+        phase_summary[month_name][phase] = {
+            "avg_mood": avg_mood,
+            "notes": joined_notes
+        }
 
 # --- Print summary table ---
-print("Mood Summary by Month and Phase:")
+print("\nMood Summary by Month and Phase:")
 print("{:<10} {:<12} {:<12} {:<12} {:<12}".format("Month", "Menstruation", "Follicular", "Ovulation", "Luteal"))
-for month, phases in phase_mood_summary.items():
+for month, phases in phase_summary.items():
     print("{:<10} {:<12} {:<12} {:<12} {:<12}".format(
         month,
-        phases["Menstruation"] if phases["Menstruation"] is not None else "-",
-        phases["Follicular"] if phases["Follicular"] is not None else "-",
-        phases["Ovulation"] if phases["Ovulation"] is not None else "-",
-        phases["Luteal"] if phases["Luteal"] is not None else "-"
+        round(phases["Menstruation"]["avg_mood"], 1) if phases["Menstruation"]["avg_mood"] else "-",
+        round(phases["Follicular"]["avg_mood"], 1) if phases["Follicular"]["avg_mood"] else "-",
+        round(phases["Ovulation"]["avg_mood"], 1) if phases["Ovulation"]["avg_mood"] else "-",
+        round(phases["Luteal"]["avg_mood"], 1) if phases["Luteal"]["avg_mood"] else "-"
     ))
+
+# --- Print notes grouped by phase ---
+print("\nDetailed Notes per Phase:")
+for month, phases in phase_summary.items():
+    print(f"\n{month.upper()}")
+    for phase, data in phases.items():
+        print(f"  {phase}: {data['notes']}")
 
 # --- Plot mood per phase across months ---
 phases_list = list(CYCLE_PHASES.keys())
-for month, phases in phase_mood_summary.items():
-    moods = [phases[phase] if phases[phase] is not None else 0 for phase in phases_list]
+for month, phases in phase_summary.items():
+    moods = [phases[p]["avg_mood"] if phases[p]["avg_mood"] is not None else 0 for p in phases_list]
     plt.plot(phases_list, moods, marker='o', label=month)
 
 plt.title("Average Mood per Cycle Phase")
