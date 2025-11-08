@@ -1,0 +1,35 @@
+[
+    {
+        "month": "2025-11",
+        "days": [
+            {"day": 1, "note": "Tired, cramps, needed rest", "mood": 3},
+            {"day": 2, "note": "Headache, low energy", "mood": 4},
+            {"day": 3, "note": "Slept long, felt better after", "mood": 5},
+            {"day": 6, "note": "More energy, small tasks", "mood": 6},
+            {"day": 13, "note": "Focused, active", "mood": 8},
+            {"day": 18, "note": "Calm, reflective", "mood": 7},
+            {"day": 25, "note": "Calm, prepared for next cycle", "mood": 9}
+        ]
+    },
+    {
+        "month": "2025-12",
+        "days": [
+            {"day": 1, "note": "Tired, cramps", "mood": 3},
+            {"day": 2, "note": "Low energy", "mood": 4},
+            {"day": 6, "note": "More productive", "mood": 7},
+            {"day": 13, "note": "Social, creative", "mood": 8},
+            {"day": 18, "note": "Calm, reflective", "mood": 6},
+            {"day": 25, "note": "Relaxed, prepared", "mood": 9}
+        ]
+    },
+    {
+        "month": "2026-01",
+        "days": [
+            {"day": 1, "note": "Tired, cramps", "mood": 2},
+            {"day": 6, "note": "Focused, light workout", "mood": 7},
+            {"day": 13, "note": "Very active", "mood": 9},
+            {"day": 18, "note": "Reflective, calm", "mood": 6},
+            {"day": 25, "note": "Relaxed", "mood": 8}
+        ]
+    }
+]
